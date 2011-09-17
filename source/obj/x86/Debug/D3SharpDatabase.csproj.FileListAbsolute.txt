@@ -1,0 +1,3 @@
+E:\Code\D3Sharp\raistlinthewiz-d3db\source\D3SharpDatabase\bin\Debug\D3SharpDatabase.exe.config
+E:\Code\D3Sharp\raistlinthewiz-d3db\source\D3SharpDatabase\obj\x86\Debug\D3SharpDatabase.exe
+E:\Code\D3Sharp\raistlinthewiz-d3db\source\D3SharpDatabase\obj\x86\Debug\D3SharpDatabase.pdb

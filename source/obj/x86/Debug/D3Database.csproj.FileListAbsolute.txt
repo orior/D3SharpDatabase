@@ -1,0 +1,6 @@
+E:\Code\D3Sharp\raistlinthewiz-d3db\source\D3Database\obj\x86\Debug\ResolveAssemblyReference.cache
+E:\Code\D3Sharp\raistlinthewiz-d3db\source\D3Database\bin\Debug\D3SharpDatabase.exe.config
+E:\Code\D3Sharp\raistlinthewiz-d3db\source\D3Database\bin\Debug\D3SharpDatabase.exe
+E:\Code\D3Sharp\raistlinthewiz-d3db\source\D3Database\bin\Debug\D3SharpDatabase.pdb
+E:\Code\D3Sharp\raistlinthewiz-d3db\source\D3Database\obj\x86\Debug\D3SharpDatabase.exe
+E:\Code\D3Sharp\raistlinthewiz-d3db\source\D3Database\obj\x86\Debug\D3SharpDatabase.pdb
