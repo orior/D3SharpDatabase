@@ -42,13 +42,15 @@ namespace D3Database
 
         public bool Create(int accountId)
         {
+            if (!Account.CheckIfAccountExists(accountId))
+                return false;
             if (CheckIfHeroExists(accountId, Name))
                 return false;
             SQLiteCommand command = new SQLiteCommand(string.Format("INSERT INTO hero (account_id, hero_name, hero_class_id, hero_gender_id, hero_experience, hero_level) VALUES('{0}','{1}','{2}','{3}', '{4}', '{5}')", accountId, Name, HeroClass, Gender, Experience, Level), Database.Instance.Connection);
             int affectedRows = command.ExecuteNonQuery();
             if (affectedRows == 0)
                 return false;
-            Id = Database.Instance.GetLastInsertId();
+            Id = Database.Instance.GetLastInsertId();            
             return true;
         }
 
@@ -84,7 +86,7 @@ namespace D3Database
 
         public override string ToString()
         {
-            return String.Format("{0}\t{1}\t{2}\t{3}\t{4}\t{5}", Id, Name, HeroClass, Gender, Experience, Level);
+            return String.Format("Id: {0}, Name: {1},  HeroClass:{2} Gender: {3}, Exp: {4}, Level: {5}", Id, Name, HeroClass, Gender, Experience, Level);
         }
     }
 }

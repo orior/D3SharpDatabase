@@ -13,8 +13,6 @@ namespace D3Database
         public int Gold { get; set; }
         public int Gender { get; private set; }
 
-        private List<Hero> heroList;
-
         public Account(string name, int gold, int gender)
         {
             Id = -1;
@@ -51,9 +49,16 @@ namespace D3Database
             return true;
         }
 
-        static bool CheckIfAccountExists(string account_name)
+        public static bool CheckIfAccountExists(string account_name)
         {
             SQLiteCommand command = new SQLiteCommand(string.Format("SELECT account_id FROM account WHERE account_name='{0}'", account_name), Database.Instance.Connection);
+            SQLiteDataReader reader = command.ExecuteReader();
+            return reader.HasRows;
+        }
+
+        public static bool CheckIfAccountExists(int account_id)
+        {
+            SQLiteCommand command = new SQLiteCommand(string.Format("SELECT account_id FROM account WHERE account_id='{0}'", account_id), Database.Instance.Connection);
             SQLiteDataReader reader = command.ExecuteReader();
             return reader.HasRows;
         }
@@ -94,9 +99,7 @@ namespace D3Database
 
         public List<Hero> GetHeroes()
         {
-            if (heroList != null)
-                return heroList;
-            heroList = new List<Hero>();
+            var heroList = new List<Hero>();
             SQLiteCommand command = new SQLiteCommand(string.Format("SELECT hero_id FROM hero WHERE account_id='{0}'", Id), Database.Instance.Connection);
             SQLiteDataReader reader = command.ExecuteReader();
             if (reader.HasRows)

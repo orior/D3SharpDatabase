@@ -37,7 +37,8 @@ namespace D3Database
         public void Connect()
         {
             //Connection = new SQLiteConnection("Data Source=d3sharp.sqlite");
-            Connection = new SQLiteConnection("Data Source=d3db_fixed.db");
+            // Connection = new SQLiteConnection("Data Source=d3db_fixed.db");
+            Connection = new SQLiteConnection("Data Source=d3sharp_fixed.sqlite");
             Connection.Open();
         }
 
