@@ -14,12 +14,10 @@ namespace D3Database
         {
             try
             {
-                string account_name = "orior3";
-                string password = "poop";
                 Database.Instance.Connect();
                 if (Database.Instance.Connection.State != System.Data.ConnectionState.Open)
                 {
-                    Console.WriteLine("Failed to open Database.Instance.Connection");
+                    Console.WriteLine("Failed to open connection");
                     Console.ReadLine();
                     return;
                 }
