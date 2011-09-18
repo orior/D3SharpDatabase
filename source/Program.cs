@@ -14,15 +14,15 @@ namespace D3Database
         {
             try
             {
-                Database.Instance.Connect();
+                string dbFile = "d3sharp_fixed20110918_2.sqlite";
+                Database.Instance.Connect(dbFile);
                 if (Database.Instance.Connection.State != System.Data.ConnectionState.Open)
                 {
-                    Console.WriteLine("Failed to open connection");
+                    Console.WriteLine("Failed to open connection to: {0}", dbFile);
                     Console.ReadLine();
                     return;
                 }
-                Console.WriteLine("Connected to db");
-                Console.WriteLine();
+                Console.WriteLine("Connected to {0}", dbFile);
                 PrintHelp();
 
                 while (true)
@@ -54,6 +54,12 @@ namespace D3Database
                         case "create hero":
                             CommandCreateHero();
                             break;
+                        case "create banner":
+                            CommandCreateBanner();
+                            break;
+                        case "list banners":
+                            CommandListBanners();
+                            break;
                         default:
                             Console.WriteLine("Unknown command");
                             PrintHelp();
@@ -69,8 +75,8 @@ namespace D3Database
 
         static void PrintHelp()
         {
-            Console.WriteLine("Commands: ");
-            Console.WriteLine("exit, login, logout, list accounts, create account, create hero, list heroes");
+            Console.Write("Commands: ");
+            Console.Write("exit, login, logout, list accounts, create account, create hero, list heroes" + Environment.NewLine);
         }
 
         static void CommandCreateAccount()
@@ -106,6 +112,8 @@ namespace D3Database
                     Console.WriteLine("{0}: {1}", account_id, account_name);
                 }
             }
+            else
+                Console.WriteLine("No accounts");
         }
 
         static void CommandLogin()
@@ -138,10 +146,16 @@ namespace D3Database
                 Console.WriteLine("not logged in");
                 return;
             }
-            foreach (var hero in currentAccount.GetHeroes())
+            var heroes = currentAccount.GetHeroes();
+            if (heroes.Count > 0)
             {
-                Console.WriteLine(hero);
+                foreach (var hero in heroes)
+                {
+                    Console.WriteLine(hero);
+                }
             }
+            else
+                Console.WriteLine("No heroes");
         }
 
         static void CommandCreateHero()
@@ -174,6 +188,77 @@ namespace D3Database
                 Console.WriteLine("Hero {0} created", name);
             else
                 Console.WriteLine("Hero already exists");
+        }
+
+        static void CommandCreateBanner()
+        {
+            if (currentAccount == null)
+            {
+                Console.WriteLine("not logged in");
+                return;
+            }
+            Console.Write("BackgroundColor: ");
+            var backgroundColorString = Console.ReadLine();
+            Console.Write("Banner: ");
+            var bannerString = Console.ReadLine();
+            Console.Write("Pattern: ");
+            var patternString = Console.ReadLine();
+            Console.Write("PatternColor: ");
+            var patternColorString = Console.ReadLine();
+            Console.Write("Placement: ");
+            var placementString = Console.ReadLine();
+            Console.Write("SigilAccent: ");
+            var sigilAccentString = Console.ReadLine();
+            Console.Write("SigilMain: ");
+            var sigilMainString = Console.ReadLine();
+            Console.Write("SigilColor: ");
+            var sigilColorString = Console.ReadLine();
+
+            int backgroundColor;
+            int.TryParse(backgroundColorString, out backgroundColor);
+            int banner;
+            int.TryParse(bannerString, out banner);
+            int pattern;
+            int.TryParse(patternString, out pattern);
+            int patternColor;
+            int.TryParse(patternColorString, out patternColor);
+            int placement;
+            int.TryParse(placementString, out placement);
+            int sigilAccent;
+            int.TryParse(sigilAccentString, out sigilAccent);
+            int sigilMain;
+            int.TryParse(sigilMainString, out sigilMain);
+            int sigilColor;
+            int.TryParse(sigilColorString, out sigilColor);
+
+            Console.Write("UseSigilVariant (yes/no): ");
+            var useSigilVariant = Console.ReadLine() == "yes";
+
+            var accountBanner = new AccountBanner(currentAccount.Id, backgroundColor, banner, pattern, patternColor, placement, sigilAccent, sigilMain, sigilColor, useSigilVariant);
+            if(accountBanner.Create())
+                Console.WriteLine("Banner created");
+            else
+                Console.WriteLine("Failed to create banner");
+        }
+
+        static void CommandListBanners()
+        {
+            if (currentAccount == null)
+            {
+                Console.WriteLine("not logged in");
+                return;
+            }
+
+            var banners = currentAccount.GetBanners();
+            if (banners.Count > 0)
+            {
+                foreach (var banner in banners)
+                {
+                    Console.WriteLine(banner);
+                }
+            }
+            else
+                Console.WriteLine("No account banners");
         }
     }
 }

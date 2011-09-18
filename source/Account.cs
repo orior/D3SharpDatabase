@@ -38,6 +38,8 @@ namespace D3Database
 
         public bool Create(string password)
         {
+            if (Id != -1)
+                return false;
             if (CheckIfAccountExists(Name))
                 return false;
             string md5Password = GetMD5Hash(password);
@@ -116,6 +118,27 @@ namespace D3Database
                 }
             }
             return heroList;
+        }
+
+        public List<AccountBanner> GetBanners()
+        {
+            var accountBannerList = new List<AccountBanner>();
+            SQLiteCommand command = new SQLiteCommand(string.Format("SELECT account_banner_id FROM account_banner WHERE account_id='{0}'", Id), Database.Instance.Connection);
+            SQLiteDataReader reader = command.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    var account_banner_id = reader.GetInt32(0);
+                    AccountBanner accountBanner;
+                    if (!AccountBanner.Load(account_banner_id, out accountBanner))
+                        Console.WriteLine("Failed to load account banner with id: {0}", account_banner_id);
+                    else
+                        accountBannerList.Add(accountBanner);
+
+                }
+            }
+            return accountBannerList;
         }
 
         public override string ToString()
