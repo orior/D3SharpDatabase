@@ -11,15 +11,23 @@ namespace D3Database
         public static bool Load(int level, out int experience)
         {
             experience = -1;
-            SQLiteCommand command = new SQLiteCommand(string.Format("SELECT experience FROM experience_levels WHERE level='{0}'", level), Database.Instance.Connection);
-            SQLiteDataReader reader = command.ExecuteReader();
-            if (reader.HasRows)
-            {
-                while (reader.Read())
+            try {
+                SQLiteCommand command = new SQLiteCommand(string.Format("SELECT experience FROM experience_levels WHERE level='{0}'", level), Database.Instance.Connection);
+                SQLiteDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
                 {
-                    experience = reader.GetInt32(0);
-                    return true;
+                    while (reader.Read())
+                    {
+                        experience = reader.GetInt32(0);
+                        return true;
+                    }
                 }
+            }
+           
+            catch (Exception e)
+            {
+                Console.WriteLine("Failed to load Experience Levels exception: {0}", e.Message);
+                return false;
             }
             return false;
         }

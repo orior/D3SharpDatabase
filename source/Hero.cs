@@ -62,6 +62,7 @@ namespace D3Database
         public static bool Load(int id, out Hero hero)
         {
             hero = null;
+            try {
             SQLiteCommand command = new SQLiteCommand(string.Format("SELECT hero_id, hero_name, hero_class_id, hero_gender_id, hero_experience, hero_level FROM hero WHERE hero.hero_id='{0}'", id), Database.Instance.Connection);
             SQLiteDataReader reader = command.ExecuteReader();
             if (reader.HasRows)
@@ -78,6 +79,12 @@ namespace D3Database
                     hero.Id = hero_id;
                     return true;
                 }
+            }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Failed to load Hero exception: {0}", e.Message);
+                return false;
             }
             return false;
         }

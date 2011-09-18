@@ -61,20 +61,28 @@ namespace D3Database
         public static bool Load(int id, out Account account)
         {
             account = null;
-            SQLiteCommand command = new SQLiteCommand(string.Format("SELECT account_id, account_name, gold, gender FROM account WHERE account_id='{0}'", id), Database.Instance.Connection);
-            SQLiteDataReader reader = command.ExecuteReader();
-            if (reader.HasRows)
-            {
-                while (reader.Read())
+            try {
+                SQLiteCommand command = new SQLiteCommand(string.Format("SELECT account_id, account_name, gold, gender FROM account WHERE account_id='{0}'", id), Database.Instance.Connection);
+                SQLiteDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
                 {
-                    var account_id = reader.GetInt32(0);
-                    var account_name = reader.GetString(1);
-                    var gold = reader.GetInt32(2);
-                    var gender = reader.GetInt32(3);
-                    account = new Account(account_name, gold, gender);
-                    account.Id = account_id;
-                    return true;
-                }
+                    while (reader.Read())
+                    {
+                        var account_id = reader.GetInt32(0);
+                        var account_name = reader.GetString(1);
+                        var gold = reader.GetInt32(2);
+                        var gender = reader.GetInt32(3);
+                        account = new Account(account_name, gold, gender);
+                        account.Id = account_id;
+                        return true;
+                    }
+                }            
+            }
+            
+             catch (Exception e)
+            {
+                Console.WriteLine("Failed to load hero exception: {0}", e.Message);
+                return false;
             }
             return false;
         }

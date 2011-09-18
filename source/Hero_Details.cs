@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Data.SQLite;
 
-namespace D3SharpDatabase
+namespace D3Database
 {
 
     public class Hero_Details 
@@ -116,22 +116,24 @@ namespace D3SharpDatabase
 
         public bool Save()
         {
+            //stub todo
             try
             {
-                SQLiteCommand command = new SQLiteCommand(string.Format("UPDATE account_banner SET background_color='{1}', banner='{2}', pattern='{3}', pattern_color='{4}', placement='{5}', signil_accent='{6}', signil_main='{7}', signil_color='{8}', use_signil_variant='{9}' WHERE account_id='{0}'", Id,BackgroundColor,Banner,Pattern,PatternColor,Placement,SignilAccent,SignilMain,SignilColor,UseSignilVariant), Database.Instance.Connection);
+                SQLiteCommand command = new SQLiteCommand(string.Format("UPDATE hero_details SET background_color='{1}', banner='{2}', pattern='{3}', pattern_color='{4}', placement='{5}', signil_accent='{6}', signil_main='{7}', signil_color='{8}', use_signil_variant='{9}' WHERE ?????='{0}'", Id,BackgroundColor,Banner,Pattern,PatternColor,Placement,SignilAccent,SignilMain,SignilColor,UseSignilVariant), Database.Instance.Connection);
                 command.ExecuteNonQuery();
                 return true;
             }
             catch (Exception e)
             {
-                Console.WriteLine("Failed to save Account Banner exception: {0}", e.Message);
+                Console.WriteLine("Failed to save Hero Details exception: {0}", e.Message);
                 return false;
             }
         }
 
         public bool Create()
         {
-            SQLiteCommand command = new SQLiteCommand(string.Format("INSERT INTO account_banner (account_id, background_color, banner, pattern, pattern_color, placement, signil_accent, signil_main, signil_color, use_signil_variant) VALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}')", Id, BackgroundColor, Banner, Pattern, PatternColor, Placement, SignilAccent, SignilMain, SignilColor, UseSignilVariant), Database.Instance.Connection);
+            //stub todo
+            SQLiteCommand command = new SQLiteCommand(string.Format("INSERT INTO hero_details (account_id, background_color, banner, pattern, pattern_color, placement, signil_accent, signil_main, signil_color, use_signil_variant) VALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}')", Id, BackgroundColor, Banner, Pattern, PatternColor, Placement, SignilAccent, SignilMain, SignilColor, UseSignilVariant), Database.Instance.Connection);
             int affectedRows = command.ExecuteNonQuery();
             if (affectedRows == 0)
                 return false;
@@ -140,26 +142,33 @@ namespace D3SharpDatabase
         }
 
 
-        public static bool Load(int id, out AccountBanner accountbanner)
+        public static bool Load(int heroid, out Hero_Details herodetails)
         {
-            accountbanner = null;
-            SQLiteCommand command = new SQLiteCommand(string.Format("SELECT * FROM account_banner WHERE account_id='{0}'", id), Database.Instance.Connection);
+            //todo
+            /*herodetails = null;
+            SQLiteCommand command = new SQLiteCommand(string.Format("SELECT * FROM account_banner WHERE account_id='{0}'", heroid), Database.Instance.Connection);
             SQLiteDataReader reader = command.ExecuteReader();
             if (reader.HasRows)
             {
                 while (reader.Read())
                 {
-                    accountbanner = new AccountBanner(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetInt32(3), reader.GetString(4), reader.GetInt32(5), reader.GetInt32(6), reader.GetInt32(7), reader.GetString(8), reader.GetBoolean(9));
+                    herodetails = new Hero_Details(reader.GetInt32(0),reader.GetInt32(1),reader.GetInt32(2),reader.GetInt32(3),reader.GetInt32(4),
+                    reader.GetInt32(5),reader.GetInt32(6),reader.GetInt32(7),reader.GetInt32(8),reader.GetInt32(9),reader.GetInt32(10),reader.GetInt32(11),
+                    reader.GetInt32(12),reader.GetInt32(13),reader.GetInt32(14),reader.GetInt32(15),reader.GetInt32(16),reader.GetInt32(17),reader.GetInt32(18),
+                    reader.GetInt32(19),reader.GetInt32(20),reader.GetInt32(21),reader.GetInt32(22),reader.GetInt32(23),reader.GetInt32(24),reader.GetInt32(25),
+                    reader.GetInt32(26),reader.GetInt32(27),reader.GetInt32(28),reader.GetInt32(29),reader.GetInt32(30),reader.GetInt32(31),reader.GetInt32(32),
+                    reader.GetInt32(33),reader.GetInt32(34),reader.GetInt32(35),reader.GetInt32(36),reader.GetInt32(37),reader.GetInt32(38),reader.GetInt32(39));
                     return true;
                 }
             }
-            return false;
+            return false;*/
         }
 
         
 
         public override string ToString()
         {
+            //stub todo
             return String.Format("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}\t{8}\t{9}", Id, BackgroundColor,Banner,Pattern,PatternColor,Placement,SignilAccent,SignilMain,SignilColor,UseSignilVariant);
         }
     }

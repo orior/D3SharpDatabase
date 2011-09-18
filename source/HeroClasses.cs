@@ -21,15 +21,23 @@ namespace D3Database
         public static bool Load(int characterid, out HeroClasses heroclass)
         {
             heroclass = null;
-            SQLiteCommand command = new SQLiteCommand(string.Format("SELECT * FROM hero_classes WHERE character_id='{0}'", characterid), Database.Instance.Connection);
-            SQLiteDataReader reader = command.ExecuteReader();
-            if (reader.HasRows)
-            {
-                while (reader.Read())
+            try {
+                SQLiteCommand command = new SQLiteCommand(string.Format("SELECT * FROM hero_classes WHERE character_id='{0}'", characterid), Database.Instance.Connection);
+                SQLiteDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
                 {
-                    heroclass = new HeroClasses(reader.GetInt32(0),reader.GetString(1),reader.GetInt32(2));
-                    return true;
+                    while (reader.Read())
+                    {
+                        heroclass = new HeroClasses(reader.GetInt32(0), reader.GetString(1), reader.GetInt32(2));
+                        return true;
+                    }
                 }
+            }
+            
+            catch (Exception e)
+            {
+                Console.WriteLine("Failed to load HeroClasses exception: {0}", e.Message);
+                return false;
             }
             return false;
         }

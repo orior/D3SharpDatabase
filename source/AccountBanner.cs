@@ -62,15 +62,24 @@ namespace D3Database
         public static bool Load(int id, out AccountBanner accountbanner)
         {
             accountbanner = null;
-            SQLiteCommand command = new SQLiteCommand(string.Format("SELECT * FROM account_banner WHERE account_id='{0}'", id), Database.Instance.Connection);
-            SQLiteDataReader reader = command.ExecuteReader();
-            if (reader.HasRows)
+            try
             {
-                while (reader.Read())
+                SQLiteCommand command = new SQLiteCommand(string.Format("SELECT * FROM account_banner WHERE account_id='{0}'", id), Database.Instance.Connection);
+                SQLiteDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
                 {
-                    accountbanner = new AccountBanner(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetInt32(3), reader.GetString(4), reader.GetInt32(5), reader.GetInt32(6), reader.GetInt32(7), reader.GetString(8), reader.GetBoolean(9));
-                    return true;
+                    while (reader.Read())
+                    {
+                        accountbanner = new AccountBanner(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetInt32(3), reader.GetString(4), reader.GetInt32(5), reader.GetInt32(6), reader.GetInt32(7), reader.GetString(8), reader.GetBoolean(9));
+                        return true;
+                    }
                 }
+            }
+
+             catch (Exception e)
+            {
+                Console.WriteLine("Failed to load Account Banner exception: {0}", e.Message);
+                return false;
             }
             return false;
         }
