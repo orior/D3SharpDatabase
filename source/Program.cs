@@ -67,6 +67,13 @@ namespace D3Database
                     }
                 }
             }
+            catch (Exception e)
+            {
+                Console.WriteLine("We got a crash!");
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
+                Console.ReadLine();
+            }
             finally
             {
                 try { Database.Instance.Connection.Close(); } catch { }
