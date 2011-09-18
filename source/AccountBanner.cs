@@ -48,7 +48,7 @@ namespace D3Database
             }
         }
 
-        public bool Create(string password)
+        public bool Create()
         {
             SQLiteCommand command = new SQLiteCommand(string.Format("INSERT INTO account_banner (account_id, background_color, banner, pattern, pattern_color, placement, signil_accent, signil_main, signil_color, use_signil_variant) VALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}')", Id, BackgroundColor, Banner, Pattern, PatternColor, Placement, SignilAccent, SignilMain, SignilColor, UseSignilVariant), Database.Instance.Connection);
             int affectedRows = command.ExecuteNonQuery();

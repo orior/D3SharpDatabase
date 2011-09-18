@@ -1,3 +1,6 @@
 E:\Code\D3Sharp\raistlinthewiz-d3db\source\D3SharpDatabase\bin\Debug\D3SharpDatabase.exe.config
 E:\Code\D3Sharp\raistlinthewiz-d3db\source\D3SharpDatabase\obj\x86\Debug\D3SharpDatabase.exe
 E:\Code\D3Sharp\raistlinthewiz-d3db\source\D3SharpDatabase\obj\x86\Debug\D3SharpDatabase.pdb
+C:\Users\James\Documents\Visual Studio 2010\Projects\d3\D3SharpDatabase\source\bin\Debug\D3SharpDatabase.exe.config
+C:\Users\James\Documents\Visual Studio 2010\Projects\d3\D3SharpDatabase\source\obj\x86\Debug\D3SharpDatabase.exe
+C:\Users\James\Documents\Visual Studio 2010\Projects\d3\D3SharpDatabase\source\obj\x86\Debug\D3SharpDatabase.pdb
