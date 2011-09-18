@@ -54,7 +54,7 @@ namespace D3Database
             int affectedRows = command.ExecuteNonQuery();
             if (affectedRows == 0)
                 return false;
-            Id = Database.Instance.GetLastInsertId();
+            //Id = Database.Instance.GetLastInsertId();
             return true;
         }
 

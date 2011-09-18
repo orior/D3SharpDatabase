@@ -9,7 +9,8 @@ namespace D3Database
 
     public class Hero_Details 
     {
-        public int Id { get; private set; }
+        public int HeroDetailId {get;set;}
+        public int HeroId { get; private set; }
         public int Title_Id { get; set; }
         public int BlockAmount { get; set; }
         public int BlockChance { get; set; }
@@ -50,7 +51,7 @@ namespace D3Database
         public int MaxDiscipline { get; set; }
         public int MaxSpirit { get; set; }
 
-        public Hero_Details (int title_id, int blackamount, 
+        public Hero_Details (int herodetailid, int heroid, int title_id, int blackamount, 
                              int blockchance, int dodgechance, 
                              int damagereduction, int attackbonusdamage, 
                              int precisioncritbonus, 
@@ -70,7 +71,8 @@ namespace D3Database
                              int maxfury, int maxdiscipline,
                              int maxspirit)
         {
-            Id = -1;
+            HeroDetailId = -1;
+            HeroId = heroid;
             Title_Id = title_id;
             BlockAmount = blackamount;
             BlockChance = blockchance;
@@ -119,7 +121,7 @@ namespace D3Database
             //stub todo
             try
             {
-                SQLiteCommand command = new SQLiteCommand(string.Format("UPDATE hero_details SET background_color='{1}', banner='{2}', pattern='{3}', pattern_color='{4}', placement='{5}', signil_accent='{6}', signil_main='{7}', signil_color='{8}', use_signil_variant='{9}' WHERE ?????='{0}'", Id,BackgroundColor,Banner,Pattern,PatternColor,Placement,SignilAccent,SignilMain,SignilColor,UseSignilVariant), Database.Instance.Connection);
+                SQLiteCommand command = new SQLiteCommand(string.Format("UPDATE hero_details SET background_color='{1}', banner='{2}', pattern='{3}', pattern_color='{4}', placement='{5}', signil_accent='{6}', signil_main='{7}', signil_color='{8}', use_signil_variant='{9}' WHERE hero_detail_id='{0}'", HeroDetailId,BackgroundColor,Banner,Pattern,PatternColor,Placement,SignilAccent,SignilMain,SignilColor,UseSignilVariant), Database.Instance.Connection);
                 command.ExecuteNonQuery();
                 return true;
             }
@@ -132,21 +134,22 @@ namespace D3Database
 
         public bool Create()
         {
-            //stub todo
-            SQLiteCommand command = new SQLiteCommand(string.Format("INSERT INTO hero_details (account_id, background_color, banner, pattern, pattern_color, placement, signil_accent, signil_main, signil_color, use_signil_variant) VALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}')", Id, BackgroundColor, Banner, Pattern, PatternColor, Placement, SignilAccent, SignilMain, SignilColor, UseSignilVariant), Database.Instance.Connection);
+            // might not work HeroDetailId isnt autoincrement in the db  i think?
+            SQLiteCommand command = new SQLiteCommand(string.Format("INSERT INTO hero_details (hero_id, title_id, BlockAmount, BlockChance, DamageReduction, AttackDamageBonus, PrecisionCritBonus, DefenseDamageReduction, VitalityLife, Armor, Attack, Precision, Defense, Vitality, DamageIncrease, AttacksPerSecond, CritDamageBonus, CritChanceBonus, CastingSpeed, LifePerKill, MovementSpeed, GoldFind, Life, LifePerSecond, LifeSteal, MagicFind, FuryGain, SpiritGain, ManaGain, ArcanumGain, HatredGain, DisciplineGain, MaxMana, MaxArcanum, MaxHatred, MaxFury, MaxDiscipline, MaxSpirit) VALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}','{13}','{14}','{15}','{16}','{17}','{18}','{19}','{20}','{21}','{22}','{23}','{24}','{25}','{26}','{27}','{28}','{29}','{31}','{32}','{33}','{34}','{35}','{36}','{37}','{38}','{39}')", HeroId,Title_Id, BlockAmount, BlockChance, DamageReduction, AttackDamageBonus, PrecisionCritBonus, DefenseDamageReduction, VitalityLife, Armor, Attack, Precision, Defense, Vitality, DamageIncrease, AttacksPerSecond, CritDamageBonus, CritChanceBonus, CastingSpeed, LifePerKill, MovementSpeed, GoldFind, Life, LifePerSecond, LifeSteal, MagicFind, FuryGain, SpiritGain, ManaGain, ArcanumGain, HatredGain, DisciplineGain, MaxMana, MaxArcanum, MaxHatred, MaxFury, MaxDiscipline, MaxSpirit), Database.Instance.Connection);
             int affectedRows = command.ExecuteNonQuery();
             if (affectedRows == 0)
                 return false;
-            Id = Database.Instance.GetLastInsertId();
+            HeroDetailId = Database.Instance.GetLastInsertId();
             return true;
         }
 
 
         public static bool Load(int heroid, out Hero_Details herodetails)
         {
-            //todo
-            /*herodetails = null;
-            SQLiteCommand command = new SQLiteCommand(string.Format("SELECT * FROM account_banner WHERE account_id='{0}'", heroid), Database.Instance.Connection);
+
+            herodetails = null;
+            try {
+            SQLiteCommand command = new SQLiteCommand(string.Format("SELECT * FROM hero_details WHERE hero_detail_id='{0}'", heroid), Database.Instance.Connection);
             SQLiteDataReader reader = command.ExecuteReader();
             if (reader.HasRows)
             {
@@ -157,11 +160,18 @@ namespace D3Database
                     reader.GetInt32(12),reader.GetInt32(13),reader.GetInt32(14),reader.GetInt32(15),reader.GetInt32(16),reader.GetInt32(17),reader.GetInt32(18),
                     reader.GetInt32(19),reader.GetInt32(20),reader.GetInt32(21),reader.GetInt32(22),reader.GetInt32(23),reader.GetInt32(24),reader.GetInt32(25),
                     reader.GetInt32(26),reader.GetInt32(27),reader.GetInt32(28),reader.GetInt32(29),reader.GetInt32(30),reader.GetInt32(31),reader.GetInt32(32),
-                    reader.GetInt32(33),reader.GetInt32(34),reader.GetInt32(35),reader.GetInt32(36),reader.GetInt32(37),reader.GetInt32(38),reader.GetInt32(39));
+                    reader.GetInt32(33),reader.GetInt32(34),reader.GetInt32(35),reader.GetInt32(36),reader.GetInt32(37),reader.GetInt32(38),reader.GetInt32(39),reader.GetInt32(40));
                     return true;
                 }
+            }            
             }
-            return false;*/
+
+            catch (Exception e)
+            {
+                Console.WriteLine("Failed to load Hero Details exception: {0}", e.Message);
+                return false;
+            }
+            return false;
         }
 
         
