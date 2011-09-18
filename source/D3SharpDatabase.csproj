@@ -48,6 +48,8 @@
     <Compile Include="AccountBanner.cs" />
     <Compile Include="Hero.cs" />
     <Compile Include="Database.cs" />
+    <Compile Include="HeroClasses.cs" />
+    <Compile Include="HeroDetails.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
