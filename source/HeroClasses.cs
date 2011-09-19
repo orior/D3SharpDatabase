@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Data.SQLite;
 
-namespace D3SharpDatabase
+namespace D3Database
 {
     //TODO 
     //Implementation of hero_class and SQL-Lite functions.
