@@ -41,6 +41,7 @@ namespace D3Database
                         Console.WriteLine("Created account: {0}", account_name);
                 }
                 Console.WriteLine("Authorized.");
+
                 Console.WriteLine("\r\n\r\nCharacter Data before Gold Insert:\r\n\r\nId\tName\t\t\tGold\tGender");
                 Console.WriteLine(account.ToString());
                 Console.WriteLine("\r\n\r\nCharacter Data after 10 Gold was Inserted:\r\n\r\nId\tName\t\t\tGold\tGender");
@@ -64,6 +65,12 @@ namespace D3Database
                     hero.Level += 1;
                     hero.Save();
                 }
+
+                //
+                //Console.WriteLine("\r\nTEST Hero_Details:");
+                //Hero_Details newDetails = new Hero_Details(hero_name, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2);
+                // todo
+                //
 
                 Console.ReadLine();
             }
