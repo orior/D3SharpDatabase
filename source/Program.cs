@@ -85,7 +85,7 @@ namespace D3Database
         static void PrintHelp()
         {
             Console.Write("Commands: ");
-            Console.Write("exit, login, logout, list accounts, create account, create hero, list heroes" + Environment.NewLine);
+            Console.Write("exit, login, logout, list accounts, create account, create hero, list heroes, hero level up" + Environment.NewLine);
         }
 
         static void CommandCreateAccount()
@@ -272,6 +272,11 @@ namespace D3Database
 
         static void CommandHeroLevelUp()
         {
+            if (currentAccount == null)
+            {
+                Console.WriteLine("not logged in");
+                return;
+            }
             Console.Write("Hero id: ");
             var heroIdString = Console.ReadLine();
             int heroId;
