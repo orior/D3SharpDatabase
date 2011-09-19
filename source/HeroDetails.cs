@@ -7,7 +7,7 @@ using System.Data.SQLite;
 namespace D3Database
 {
 
-    public class Hero_Details 
+    public class HeroDetails 
     {
         public int HeroDetailId {get;set;}
         public int HeroId { get; private set; }
@@ -51,7 +51,7 @@ namespace D3Database
         public int MaxDiscipline { get; set; }
         public int MaxSpirit { get; set; }
 
-        public Hero_Details (int herodetailid, int heroid, int title_id, int blackamount, 
+        public HeroDetails (int herodetailid, int heroid, int title_id, int blackamount, 
                              int blockchance, int dodgechance, 
                              int damagereduction, int attackbonusdamage, 
                              int precisioncritbonus, 
@@ -150,7 +150,7 @@ namespace D3Database
         }
 
 
-        public static bool Load(int heroid, out Hero_Details herodetails)
+        public static bool Load(int heroid, out HeroDetails herodetails)
         {
 
             herodetails = null;
@@ -161,7 +161,7 @@ namespace D3Database
             {
                 while (reader.Read())
                 {
-                    herodetails = new Hero_Details(reader.GetInt32(0),reader.GetInt32(1),reader.GetInt32(2),reader.GetInt32(3),reader.GetInt32(4),
+                    herodetails = new HeroDetails(reader.GetInt32(0),reader.GetInt32(1),reader.GetInt32(2),reader.GetInt32(3),reader.GetInt32(4),
                     reader.GetInt32(5),reader.GetInt32(6),reader.GetInt32(7),reader.GetInt32(8),reader.GetInt32(9),reader.GetInt32(10),reader.GetInt32(11),
                     reader.GetInt32(12),reader.GetInt32(13),reader.GetInt32(14),reader.GetInt32(15),reader.GetInt32(16),reader.GetInt32(17),reader.GetInt32(18),
                     reader.GetInt32(19),reader.GetInt32(20),reader.GetInt32(21),reader.GetInt32(22),reader.GetInt32(23),reader.GetInt32(24),reader.GetInt32(25),
