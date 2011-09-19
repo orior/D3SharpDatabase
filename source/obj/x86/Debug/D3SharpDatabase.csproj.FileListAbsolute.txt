@@ -4,3 +4,11 @@ E:\Code\D3Sharp\raistlinthewiz-d3db\source\D3SharpDatabase\obj\x86\Debug\D3Sharp
 C:\Users\James\Documents\Visual Studio 2010\Projects\d3\D3SharpDatabase\source\bin\Debug\D3SharpDatabase.exe.config
 C:\Users\James\Documents\Visual Studio 2010\Projects\d3\D3SharpDatabase\source\obj\x86\Debug\D3SharpDatabase.exe
 C:\Users\James\Documents\Visual Studio 2010\Projects\d3\D3SharpDatabase\source\obj\x86\Debug\D3SharpDatabase.pdb
+F:\TESTE\d3\D3SharpDatabaseRA3\source\bin\Debug\D3SharpDatabase.exe.config
+F:\TESTE\d3\D3SharpDatabaseRA3\source\obj\x86\Debug\D3SharpDatabase.exe
+F:\TESTE\d3\D3SharpDatabaseRA3\source\obj\x86\Debug\D3SharpDatabase.pdb
+F:\TESTE\d3\D3SharpDatabaseRA3\source\obj\x86\Debug\ResolveAssemblyReference.cache
+F:\TESTE\d3\D3SharpDatabaseRA3\source\bin\Debug\D3SharpDatabase.exe
+F:\TESTE\d3\D3SharpDatabaseRA3\source\bin\Debug\D3SharpDatabase.pdb
+F:\TESTE\d3\D3SharpDatabaseRA3\source\bin\Debug\System.Data.SQLite.dll
+F:\TESTE\d3\D3SharpDatabaseRA3\source\bin\Debug\System.Data.SQLite.pdb

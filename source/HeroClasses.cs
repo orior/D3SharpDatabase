@@ -22,7 +22,10 @@ namespace D3Database
         {
             heroclass = null;
             try {
-                SQLiteCommand command = new SQLiteCommand(string.Format("SELECT * FROM hero_classes WHERE character_id='{0}'", characterid), Database.Instance.Connection);
+                // no table called hero_classes
+                //SQLiteCommand command = new SQLiteCommand(string.Format("SELECT * FROM hero_classes WHERE character_id='{0}'", characterid), Database.Instance.Connection);
+                // need info on this
+                SQLiteCommand command = new SQLiteCommand(string.Format("SELECT * FROM hero WHERE hero_id='{0}", characterid), Database.Instance.Connection);
                 SQLiteDataReader reader = command.ExecuteReader();
                 if (reader.HasRows)
                 {
