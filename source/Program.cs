@@ -13,9 +13,9 @@ namespace D3Database
         {
             try
             {
-                string account_name = "diabloIII@emu.db";
+                string account_name = Getrandomstring() + "@emu.db";
                 string password = "pass";
-                string hero_name = "diabloIII"; // todo: random name
+                string hero_name = Getrandomstring(); // todo: random name
 
                 Database.Instance.Connect();
                 if (Database.Instance.Connection.State != System.Data.ConnectionState.Open)
@@ -71,6 +71,16 @@ namespace D3Database
             {
                 try { Database.Instance.Connection.Close(); } catch { }
             }
+        }
+
+        private static string Getrandomstring()
+        {
+            Random r = new Random();
+            string s = "";
+                for(int i = 0;i < 10; i++) {
+                    s += char.ConvertFromUtf32(r.Next(97,127));
+                }
+                return s;
         }
     }
 }
