@@ -78,7 +78,7 @@ namespace D3Database
             Random r = new Random();
             string s = "";
                 for(int i = 0;i < 10; i++) {
-                    s += char.ConvertFromUtf32(r.Next(97,127));
+                    s += char.ConvertFromUtf32(r.Next(97,122));
                 }
                 return s;
         }
