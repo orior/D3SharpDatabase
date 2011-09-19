@@ -116,6 +116,7 @@ namespace D3Database
 
 
 
+/*
         public bool Save()
         {
             //stub todo
@@ -131,6 +132,11 @@ namespace D3Database
                 return false;
             }
         }
+*/
+        void Save() { }
+
+
+
 
         public bool Create()
         {
@@ -175,36 +181,12 @@ namespace D3Database
         }
 
         
-
+/*
         public override string ToString()
         {
             //stub todo
             return String.Format("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}\t{8}\t{9}", Id, BackgroundColor,Banner,Pattern,PatternColor,Placement,SignilAccent,SignilMain,SignilColor,UseSignilVariant);
         }
+*/
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- Details & Settings 
-Help CodeViewer.org stay ad-free, and become better. 
- 
-
-Code Viewer ©2007; founder Daniel M. Story.
-The content presented on this site is copyrighted material to its rightful author.
-
-Powered By: GeSHi, mootools
