@@ -33,7 +33,7 @@ namespace D3Database
             }
             catch (Exception e)
             {
-                Console.WriteLine("Failed to save hero exception: {0}", e.Message);
+                Console.WriteLine("Account: Failed to Save hero! Exception: {0}", e.Message);
                 return false;
             }
         }
@@ -81,7 +81,7 @@ namespace D3Database
             
              catch (Exception e)
             {
-                Console.WriteLine("Failed to load hero exception: {0}", e.Message);
+                Console.WriteLine("Account: Failed to load hero! Exception: {0}", e.Message);
                 return false;
             }
             return false;
@@ -114,7 +114,7 @@ namespace D3Database
                     var hero_id = reader.GetInt32(0);
                     Hero hero;
                     if (!Hero.Load(hero_id, out hero))
-                        Console.WriteLine("Failed to load hero with id: {0}", hero_id);
+                        Console.WriteLine("Account: Failed to load hero with id: {0}", hero_id);
                     else
                         heroList.Add(hero);
 
@@ -125,7 +125,7 @@ namespace D3Database
 
         public override string ToString()
         {
-            return String.Format("{0}\t{1}\t{2}\t{3}", Id, Name, Gold, Gender);
+            return String.Format("{0}\t{1}\t{2}\t{3}\r\n\r\n", Id, Name, Gold, Gender);
         }
 
         private static string GetMD5Hash(string input)

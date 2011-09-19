@@ -26,7 +26,7 @@ namespace D3Database
            
             catch (Exception e)
             {
-                Console.WriteLine("Failed to load Experience Levels exception: {0}", e.Message);
+                Console.WriteLine("ExperienceLevels: Failed to load experience levels! Exception: {0}", e.Message);
                 return false;
             }
             return false;
