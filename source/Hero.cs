@@ -29,8 +29,15 @@ namespace D3Database
         {
             try
             {
-                SQLiteCommand command = new SQLiteCommand(string.Format("UPDATE hero SET hero_experience='{1}', hero_level='{2}' WHERE hero_id='{0}'", Id, Experience, Level), Database.Instance.Connection);
-                command.ExecuteNonQuery();
+                var insertParameters = new List<SQLiteParameter>();
+                insertParameters.Add(new SQLiteParameter("@experience", Experience));
+                insertParameters.Add(new SQLiteParameter("@level", Level));
+
+                var whereParameters = new List<SQLiteParameter>();
+                whereParameters.Add(new SQLiteParameter("@hero_id", Id));
+
+                Database.Instance.Update("hero", insertParameters, "hero_id=@hero_id", whereParameters);
+
                 return true;
             }
             catch (Exception e)

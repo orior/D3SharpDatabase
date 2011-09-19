@@ -42,8 +42,25 @@ namespace D3Database
 
         public int GetLastInsertId()
         {
-            SQLiteCommand command = new SQLiteCommand("SELECT last_insert_rowid()", Database.Instance.Connection);
+            var command = new SQLiteCommand("SELECT last_insert_rowid()", Database.Instance.Connection);
             return Convert.ToInt32(command.ExecuteScalar());
-        } 
+        }
+
+        public int Update(string table, List<SQLiteParameter> insertParameters, string whereSQL, List<SQLiteParameter> whereParameters)
+        {
+            string sql = "UPDATE {0} SET {1} WHERE {2}";
+
+            var sbInsert = new StringBuilder();
+            foreach(var parameter in insertParameters)
+                sbInsert.AppendFormat("`{0}`={1},", parameter.ParameterName.Replace("@",""), parameter.ParameterName);
+            sbInsert.Length -= 1;
+
+            sql = string.Format(sql, table, sbInsert, whereSQL);
+
+            var command = new SQLiteCommand(sql, Database.Instance.Connection);
+            command.Parameters.AddRange(insertParameters.ToArray());
+            command.Parameters.AddRange(whereParameters.ToArray());
+            return command.ExecuteNonQuery();
+        }
     }
 }

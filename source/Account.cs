@@ -120,6 +120,22 @@ namespace D3Database
             return heroList;
         }
 
+        public Hero GetHero(int heroId)
+        {
+            var heroList = new List<Hero>();
+            SQLiteCommand command = new SQLiteCommand(string.Format("SELECT hero_id FROM hero WHERE account_id='{0}' AND hero_id='{1}'", Id, heroId), Database.Instance.Connection);
+            SQLiteDataReader reader = command.ExecuteReader();
+            if (reader.HasRows)
+            {
+                Hero hero;
+                if (!Hero.Load(heroId, out hero))
+                    return null;
+                else
+                    return hero;
+            }
+            return null;
+        }
+
         public List<AccountBanner> GetBanners()
         {
             var accountBannerList = new List<AccountBanner>();

@@ -35,7 +35,6 @@ namespace D3Database
                     {
                         case "exit":
                             return;
-                            break;
                         case "list accounts":
                             CommandListAccounts();
                             break;
@@ -59,6 +58,9 @@ namespace D3Database
                             break;
                         case "list banners":
                             CommandListBanners();
+                            break;
+                        case "hero level up":
+                            CommandHeroLevelUp();
                             break;
                         default:
                             Console.WriteLine("Unknown command");
@@ -266,6 +268,26 @@ namespace D3Database
             }
             else
                 Console.WriteLine("No account banners");
+        }
+
+        static void CommandHeroLevelUp()
+        {
+            Console.Write("Hero id: ");
+            var heroIdString = Console.ReadLine();
+            int heroId;
+            int.TryParse(heroIdString, out heroId);
+            if (heroId == 0 && heroIdString != "0")
+            {
+                Console.WriteLine("Invalid hero id");
+                return;
+            }
+
+            var hero = currentAccount.GetHero(heroId);
+            if (hero == null)
+                Console.WriteLine("Could not find hero on current account");
+            hero.Level += 1;
+            hero.Save();
+            Console.WriteLine("Hero {0} is now level {1}", hero.Name, hero.Level);
         }
     }
 }
