@@ -1,1 +1,3 @@
 Requires http://sqlite.phxsoftware.com/
+
+Update the Reference to System.Data.SQLite before building
