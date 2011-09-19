@@ -8,9 +8,6 @@ namespace D3Database
 {
     public class Database
     {
-
-        public string data_source = "D3Sharp.db";
-
         #region Singleton
         private static volatile Database instance;
         private static object syncRoot = new Object();
@@ -37,9 +34,9 @@ namespace D3Database
 
         public SQLiteConnection Connection{get; private set;}
 
-        public void Connect()
+        public void Connect(string databaseFile)
         {
-            Connection = new SQLiteConnection(string.Format("Data Source={0}", data_source));
+            Connection = new SQLiteConnection(string.Format("Data Source={0}", databaseFile));
             Connection.Open();
         }
 

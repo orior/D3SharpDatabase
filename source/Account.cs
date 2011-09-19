@@ -13,8 +13,6 @@ namespace D3Database
         public int Gold { get; set; }
         public int Gender { get; private set; }
 
-        private List<Hero> heroList;
-
         public Account(string name, int gold, int gender)
         {
             Id = -1;
@@ -33,13 +31,15 @@ namespace D3Database
             }
             catch (Exception e)
             {
-                Console.WriteLine("Account: Failed to Save hero! Exception: {0}", e.Message);
+                Console.WriteLine("Failed to save hero exception: {0}", e.Message);
                 return false;
             }
         }
 
         public bool Create(string password)
         {
+            if (Id != -1)
+                return false;
             if (CheckIfAccountExists(Name))
                 return false;
             string md5Password = GetMD5Hash(password);
@@ -51,9 +51,16 @@ namespace D3Database
             return true;
         }
 
-        static bool CheckIfAccountExists(string account_name)
+        public static bool CheckIfAccountExists(string account_name)
         {
             SQLiteCommand command = new SQLiteCommand(string.Format("SELECT account_id FROM account WHERE account_name='{0}'", account_name), Database.Instance.Connection);
+            SQLiteDataReader reader = command.ExecuteReader();
+            return reader.HasRows;
+        }
+
+        public static bool CheckIfAccountExists(int account_id)
+        {
+            SQLiteCommand command = new SQLiteCommand(string.Format("SELECT account_id FROM account WHERE account_id='{0}'", account_id), Database.Instance.Connection);
             SQLiteDataReader reader = command.ExecuteReader();
             return reader.HasRows;
         }
@@ -61,28 +68,20 @@ namespace D3Database
         public static bool Load(int id, out Account account)
         {
             account = null;
-            try {
-                SQLiteCommand command = new SQLiteCommand(string.Format("SELECT account_id, account_name, gold, gender FROM account WHERE account_id='{0}'", id), Database.Instance.Connection);
-                SQLiteDataReader reader = command.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        var account_id = reader.GetInt32(0);
-                        var account_name = reader.GetString(1);
-                        var gold = reader.GetInt32(2);
-                        var gender = reader.GetInt32(3);
-                        account = new Account(account_name, gold, gender);
-                        account.Id = account_id;
-                        return true;
-                    }
-                }            
-            }
-            
-             catch (Exception e)
+            SQLiteCommand command = new SQLiteCommand(string.Format("SELECT account_id, account_name, gold, gender FROM account WHERE account_id='{0}'", id), Database.Instance.Connection);
+            SQLiteDataReader reader = command.ExecuteReader();
+            if (reader.HasRows)
             {
-                Console.WriteLine("Account: Failed to load hero! Exception: {0}", e.Message);
-                return false;
+                while (reader.Read())
+                {
+                    var account_id = reader.GetInt32(0);
+                    var account_name = reader.GetString(1);
+                    var gold = reader.GetInt32(2);
+                    var gender = reader.GetInt32(3);
+                    account = new Account(account_name, gold, gender);
+                    account.Id = account_id;
+                    return true;
+                }
             }
             return false;
         }
@@ -102,9 +101,7 @@ namespace D3Database
 
         public List<Hero> GetHeroes()
         {
-            if (heroList != null)
-                return heroList;
-            heroList = new List<Hero>();
+            var heroList = new List<Hero>();
             SQLiteCommand command = new SQLiteCommand(string.Format("SELECT hero_id FROM hero WHERE account_id='{0}'", Id), Database.Instance.Connection);
             SQLiteDataReader reader = command.ExecuteReader();
             if (reader.HasRows)
@@ -114,7 +111,7 @@ namespace D3Database
                     var hero_id = reader.GetInt32(0);
                     Hero hero;
                     if (!Hero.Load(hero_id, out hero))
-                        Console.WriteLine("Account: Failed to load hero with id: {0}", hero_id);
+                        Console.WriteLine("Failed to load hero with id: {0}", hero_id);
                     else
                         heroList.Add(hero);
 
@@ -123,9 +120,30 @@ namespace D3Database
             return heroList;
         }
 
+        public List<AccountBanner> GetBanners()
+        {
+            var accountBannerList = new List<AccountBanner>();
+            SQLiteCommand command = new SQLiteCommand(string.Format("SELECT account_banner_id FROM account_banner WHERE account_id='{0}'", Id), Database.Instance.Connection);
+            SQLiteDataReader reader = command.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    var account_banner_id = reader.GetInt32(0);
+                    AccountBanner accountBanner;
+                    if (!AccountBanner.Load(account_banner_id, out accountBanner))
+                        Console.WriteLine("Failed to load account banner with id: {0}", account_banner_id);
+                    else
+                        accountBannerList.Add(accountBanner);
+
+                }
+            }
+            return accountBannerList;
+        }
+
         public override string ToString()
         {
-            return String.Format("{0}\t{1}\t{2}\t{3}\r\n\r\n", Id, Name, Gold, Gender);
+            return String.Format("{0}\t{1}\t{2}\t{3}", Id, Name, Gold, Gender);
         }
 
         private static string GetMD5Hash(string input)

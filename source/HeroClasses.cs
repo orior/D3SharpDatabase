@@ -6,43 +6,27 @@ using System.Data.SQLite;
 
 namespace D3Database
 {
+    //TODO 
+    //Implementation of hero_class and SQL-Lite functions.
     public class HeroClasses
     {
-        public int CharacterID { get; private set; }
-        public string CharacterName { get; private set; }
-        public int CharacterClass { get; private set; }
-        public HeroClasses(int CharacterID,string CharacterName,int CharacterClass)
+        public int Id_Wizard { get; set; }
+        public int Id_Witch_Doctor { get; set; }
+        public int Id_Demon_Hunter { get; set; }
+        public int Id_Monk { get; set; }
+        public int Id_Barbarian { get; set; }
+        
+        public HeroClasses (int id_wizard, 
+                             int id_witch_doctor, 
+                             int id_demon_hunter, 
+                             int id_monk, 
+                             int id_barbarian)
         {
-            this.CharacterID = CharacterID;
-            this.CharacterName = CharacterName;
-            this.CharacterClass = CharacterClass;
-        }
-
-        public static bool Load(int characterid, out HeroClasses heroclass)
-        {
-            heroclass = null;
-            try {
-                // no table called hero_classes
-                //SQLiteCommand command = new SQLiteCommand(string.Format("SELECT * FROM hero_classes WHERE character_id='{0}'", characterid), Database.Instance.Connection);
-                // need info on this
-                SQLiteCommand command = new SQLiteCommand(string.Format("SELECT * FROM hero WHERE hero_id='{0}", characterid), Database.Instance.Connection);
-                SQLiteDataReader reader = command.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        heroclass = new HeroClasses(reader.GetInt32(0), reader.GetString(1), reader.GetInt32(2));
-                        return true;
-                    }
-                }
-            }
-            
-            catch (Exception e)
-            {
-                Console.WriteLine("Failed to load HeroClasses exception: {0}", e.Message);
-                return false;
-            }
-            return false;
-        }
+            Id_Wizard = id_wizard;
+            Id_Witch_Doctor = id_witch_doctor;
+            Id_Demon_Hunter = id_demon_hunter;
+            Id_Monk = id_monk;
+            Id_Barbarian = id_barbarian;
+        }    
     }
 }

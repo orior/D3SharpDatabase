@@ -29,26 +29,30 @@ namespace D3Database
         {
             try
             {
-                SQLiteCommand command = new SQLiteCommand(string.Format("UPDATE hero SET experience='{1}', level='{2}' WHERE hero_id='{0}'", Id, Experience, Level), Database.Instance.Connection);
+                SQLiteCommand command = new SQLiteCommand(string.Format("UPDATE hero SET hero_experience='{1}', hero_level='{2}' WHERE hero_id='{0}'", Id, Experience, Level), Database.Instance.Connection);
                 command.ExecuteNonQuery();
                 return true;
             }
             catch (Exception e)
             {
-                Console.WriteLine("Hero: Failed to save hero! Exception: {0}", e.Message);
+                Console.WriteLine("Failed to save hero exception: {0}", e.Message);
                 return false;
             }
         }
 
         public bool Create(int accountId)
         {
+            if (Id != -1)
+                return false;
+            if (!Account.CheckIfAccountExists(accountId))
+                return false;
             if (CheckIfHeroExists(accountId, Name))
                 return false;
             SQLiteCommand command = new SQLiteCommand(string.Format("INSERT INTO hero (account_id, name, hero_class_id, hero_gender_id, experience, level) VALUES('{0}','{1}','{2}','{3}', '{4}', '{5}')", accountId, Name, HeroClass, Gender, Experience, Level), Database.Instance.Connection);
             int affectedRows = command.ExecuteNonQuery();
             if (affectedRows == 0)
                 return false;
-            Id = Database.Instance.GetLastInsertId();
+            Id = Database.Instance.GetLastInsertId();            
             return true;
         }
 
@@ -62,7 +66,6 @@ namespace D3Database
         public static bool Load(int id, out Hero hero)
         {
             hero = null;
-            try {
             SQLiteCommand command = new SQLiteCommand(string.Format("SELECT hero_id, name, hero_class_id, hero_gender_id, experience, level FROM hero WHERE hero.hero_id='{0}'", id), Database.Instance.Connection);
             SQLiteDataReader reader = command.ExecuteReader();
             if (reader.HasRows)
@@ -80,18 +83,12 @@ namespace D3Database
                     return true;
                 }
             }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Hero: Failed to load hero! Exception: {0}", e.Message);
-                return false;
-            }
             return false;
         }
 
         public override string ToString()
         {
-            return String.Format("{0}\t{1}\t{2}\t{3}\t{4}\t{5}", Id, Name, HeroClass, Gender, Experience, Level);
+            return String.Format("Id: {0}, Name: {1},  HeroClass:{2} Gender: {3}, Exp: {4}, Level: {5}", Id, Name, HeroClass, Gender, Experience, Level);
         }
     }
 }
