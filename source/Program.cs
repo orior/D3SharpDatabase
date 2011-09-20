@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Data.SQLite;
 using System.Security.Cryptography;
+using System.Text.RegularExpressions;
 
 namespace D3Database
 {
@@ -78,7 +79,8 @@ namespace D3Database
             }
             finally
             {
-                try { Database.Instance.Connection.Close(); } catch { }
+                try { Database.Instance.Connection.Close(); }
+                catch { }
             }
         }
 
@@ -176,17 +178,35 @@ namespace D3Database
             }
             Console.Write("Name: ");
             var name = Console.ReadLine();
-            Console.Write("Hero class 1-5: ");
+
+            // Check if the hero name contains a number
+            if (Regex.IsMatch(name, @"\d"))
+            {
+                while (Regex.IsMatch(name, @"\d"))
+                {
+                    Console.WriteLine("Invalid name - Names cannot contain a number.");
+                    Console.Write("Name: ");
+                    name = Console.ReadLine();
+                }
+            }
+            Console.WriteLine("Hero Class:\n1: Wizard\n2: Witch Doctor\n3: Demon Hunter\n4: Monk\n5: Barbarian");
             var heroClassString = Console.ReadLine();
+            int heroClass;
+            if (!int.TryParse(heroClassString, out heroClass))
+            {
+                while (!int.TryParse(heroClassString, out heroClass))
+                {
+                    Console.WriteLine("Invalid class. Please choose a number.");
+                    Console.WriteLine("Hero Class:\n1: Wizard\n2: Witch Doctor\n3: Demon Hunter\n4: Monk\n5: Barbarian");
+                    heroClassString = Console.ReadLine();
+                }
+            }
             Console.Write("Gender (male/female): ");
             var gender = Console.ReadLine() == "male" ? 1 : 2;
             Console.Write("Level: ");
             var levelString = Console.ReadLine();
             Console.Write("Experience: ");
             var experienceString = Console.ReadLine();
-            int heroClass;
-            int.TryParse(heroClassString, out heroClass);
-
             int level;
             int.TryParse(levelString, out level);
             int experience;
@@ -244,7 +264,7 @@ namespace D3Database
             var useSigilVariant = Console.ReadLine() == "yes";
 
             var accountBanner = new AccountBanner(currentAccount.Id, backgroundColor, banner, pattern, patternColor, placement, sigilAccent, sigilMain, sigilColor, useSigilVariant);
-            if(accountBanner.Create())
+            if (accountBanner.Create())
                 Console.WriteLine("Banner created");
             else
                 Console.WriteLine("Failed to create banner");
