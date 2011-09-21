@@ -63,6 +63,9 @@ namespace D3Database
                         case "hero level up":
                             CommandHeroLevelUp();
                             break;
+                        case "clear":
+                            Console.Clear();
+                            break;
                         default:
                             Console.WriteLine("Unknown command");
                             PrintHelp();
@@ -87,7 +90,7 @@ namespace D3Database
         static void PrintHelp()
         {
             Console.Write("Commands: ");
-            Console.Write("exit, login, logout, list accounts, create account, create hero, list heroes, hero level up" + Environment.NewLine);
+            Console.Write("exit, login, logout, list accounts, create account, create hero, list heroes, hero level up, clear" + Environment.NewLine);
         }
 
         static void CommandCreateAccount()
@@ -307,9 +310,12 @@ namespace D3Database
                 return;
             }
 
-            var hero = currentAccount.GetHero(heroId);
-            if (hero == null)
+            Hero hero;
+
+            if (!Hero.Load(heroId, out hero))
+            {
                 Console.WriteLine("Could not find hero on current account");
+            }
             hero.Level += 1;
             hero.Save();
             Console.WriteLine("Hero {0} is now level {1}", hero.Name, hero.Level);
