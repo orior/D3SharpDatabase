@@ -10,3 +10,6 @@ E:\Code\D3SharpDatabase\source\bin\Debug\D3SharpDatabase.exe
 E:\Code\D3SharpDatabase\source\bin\Debug\D3SharpDatabase.pdb
 E:\Code\D3SharpDatabase\source\obj\x86\Debug\D3SharpDatabase.exe
 E:\Code\D3SharpDatabase\source\obj\x86\Debug\D3SharpDatabase.pdb
+C:\Users\TeTuBe\Desktop\Hacking\git\D3SharpDatabase\source\bin\Debug\D3SharpDatabase.exe
+C:\Users\TeTuBe\Desktop\Hacking\git\D3SharpDatabase\source\bin\Debug\D3SharpDatabase.pdb
+C:\Users\TeTuBe\Desktop\Hacking\git\D3SharpDatabase\source\obj\x86\Debug\ResolveAssemblyReference.cache
