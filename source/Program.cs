@@ -88,15 +88,15 @@ namespace D3Database
                     }
                 }
             }
-            //catch (Exception e)
-            //{
-            //    Console.ForegroundColor = ConsoleColor.Red;
-            //    Console.WriteLine("Error:");
-            //    Console.ResetColor();
-            //    Console.WriteLine(e.Message);
-            //    Console.WriteLine(e.StackTrace);
-            //    Console.ReadLine();
-            //}
+            catch (Exception e)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Exception:");
+                Console.ResetColor();
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
+                Console.ReadLine();
+            }
             finally
             {
                 try { Database.Instance.Connection.Close(); }
