@@ -19,8 +19,6 @@
 //  ///////////////////////////////////////////////////////////////////////////////////////////////
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Data.SQLite;
 
 namespace D3Database
@@ -28,10 +26,25 @@ namespace D3Database
     public class Account
     {
         #region Properties
-
+        
+        /// <summary>
+        /// The database ID for this account.
+        /// </summary>
         public int Id { get; private set; }
+        
+        /// <summary>
+        /// The name of this account.
+        /// </summary>
         public string Name { get; private set; }
+        
+        /// <summary>
+        /// The amount of gold associated with this account.
+        /// </summary>
         public int Gold { get; set; }
+
+        /// <summary>
+        /// The gender of this account (1 = male, 2 = female)
+        /// </summary>
         public int Gender { get; private set; }
 
         #endregion
