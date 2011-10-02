@@ -148,11 +148,11 @@ namespace D3Database
             return true;
         }
 
-        //  TODO
-        //  Implement CheckIfDetailsExists function
-        private bool CheckIfDetailsExists()
+        private bool CheckIfDetailsExists(int account_id, string title_id)
         {
-            return true;
+            SQLiteCommand command = new SQLiteCommand(string.Format("SELECT hero_id FROM hero_details WHERE account_id='{0}' AND title_id='{1}'", account_id, title_id), Database.Instance.Connection);
+            SQLiteDataReader reader = command.ExecuteReader();
+            return reader.HasRows;
         }
 
         public static bool Load(int heroid, out HeroDetails herodetails)
